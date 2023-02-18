@@ -1,9 +1,5 @@
 import React from "react";
-
-type ButtonProps = {
-  children: React.ReactNode;
-  variant?: "primary" | "transparent";
-};
+import { ButtonProps } from "@/lib/types";
 
 export default function Button({ children, variant }: ButtonProps) {
   return (

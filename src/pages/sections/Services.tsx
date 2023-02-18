@@ -1,9 +1,8 @@
 import React from "react";
-import { AiOutlineDesktop } from "react-icons/ai";
-import { IoSettingsOutline } from "react-icons/io5";
-import { FiPenTool } from "react-icons/fi";
-import { MdAttachMoney } from "react-icons/md";
 import { BiRightArrowAlt } from "react-icons/bi";
+import ServiceCard from "@/components/ServiceCard";
+import { services } from "@/lib/const";
+
 export default function Services() {
   return (
     <section id='services' className='py-16 md:py-20'>
@@ -25,38 +24,14 @@ export default function Services() {
         </div>
         <div className=''>
           <div className='grid grid-cols-1 md:grid-cols-2 place-content-center gap-10 lg:gap-6 xl:gap-10 w-fit mx-auto'>
-            <div className='p-2 w-[200px] h-[220px] rounded-3xl border-service shadow-none hover:shadow-[4px_4px_30px_0_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out flex flex-col items-center justify-center gap-8'>
-              <div className='w-20 h-20 rounded-full bg-primary flex items-center justify-center'>
-                <AiOutlineDesktop className='text-4xl text-white' />
-              </div>
-              <p className='font-bold lg:text-xl xl:text-[22px] leading-[30px] text-center'>
-                Social Media Management
-              </p>
-            </div>
-            <div className='p-2 w-[200px] h-[220px] rounded-3xl border-service shadow-none hover:shadow-[4px_4px_30px_0_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out flex flex-col items-center justify-center gap-8'>
-              <div className='w-20 h-20 rounded-full bg-[#FF2D2D] flex items-center justify-center'>
-                <IoSettingsOutline className='text-4xl text-white' />
-              </div>
-              <p className='font-bold lg:text-xl xl:text-[22px] leading-[30px] text-center'>
-                Search Engine Optimization
-              </p>
-            </div>
-            <div className='p-2 w-[200px] h-[220px] rounded-3xl border-service shadow-none hover:shadow-[4px_4px_30px_0_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out flex flex-col items-center justify-center gap-8'>
-              <div className='w-20 h-20 rounded-full bg-[#7CE761] flex items-center justify-center'>
-                <FiPenTool className='text-4xl text-white' />
-              </div>
-              <p className='font-bold lg:text-xl xl:text-[22px] leading-[30px] text-center'>
-                Design
-              </p>
-            </div>
-            <div className='p-2 w-[200px] h-[220px] rounded-3xl border-service shadow-none hover:shadow-[4px_4px_30px_0_rgba(0,0,0,0.1)] transition-all duration-300 ease-in-out flex flex-col items-center justify-center gap-8'>
-              <div className='w-20 h-20 rounded-full bg-[#FFA800] flex items-center justify-center'>
-                <MdAttachMoney className='text-4xl text-white' />
-              </div>
-              <p className='font-bold lg:text-xl xl:text-[22px] leading-[30px] text-center'>
-                Ads
-              </p>
-            </div>
+            {services.map((item) => (
+              <ServiceCard
+                key={item.id}
+                icon={item.icon}
+                title={item.title}
+                color={item.color}
+              />
+            ))}
           </div>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React from "react";
-import Image from "next/image";
 import Button from "@/components/Button";
+import PortfolioCard from "@/components/PortfolioCard";
+import { portfolio } from "@/lib/const";
 
 export default function Portfolio() {
   return (
@@ -17,27 +18,9 @@ export default function Portfolio() {
           </p>
         </div>
         <div className='flex flex-col lg:flex-row justify-between items-center w-full gap-8'>
-          <Image
-            className='w-72 lg:w-64 xl:w-80 hover:scale-105 transition-all duration-300 ease-in-out'
-            height={525}
-            width={525}
-            alt='portfolio'
-            src={"/portfolio-1.png"}
-          />
-          <Image
-            className='w-72 lg:w-64 xl:w-80 hover:scale-105 transition-all duration-300 ease-in-out'
-            height={525}
-            width={525}
-            alt='portfolio'
-            src={"/portfolio-2.png"}
-          />
-          <Image
-            className='w-72 lg:w-64 xl:w-80 hover:scale-105 transition-all duration-300 ease-in-out'
-            height={525}
-            width={525}
-            alt='portfolio'
-            src={"/portfolio-3.png"}
-          />
+          {portfolio.map((item) => (
+            <PortfolioCard key={item.id} image={item.image} />
+          ))}
         </div>
         <Button variant='transparent'>See All Portfolio</Button>
       </div>

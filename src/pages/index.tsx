@@ -7,7 +7,7 @@ import {
   Portfolio,
   Testimonial,
   Collaboration,
-} from "@/components/Utils";
+} from "@/lib/Utils";
 
 import Layout from "@/components/layout/Layout";
 
