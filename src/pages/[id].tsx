@@ -1,12 +1,11 @@
 import React from "react";
 import { InferGetServerSidePropsType } from "next";
 import Link from "next/link";
-import { User } from "@/lib/types";
+import { UserProps } from "@/lib/types";
 
 export default function User({
   user,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  console.log(user);
   return (
     <div className='flex flex-col  justify-center items-center py-16'>
       <h1>{user.name}</h1>
@@ -25,7 +24,7 @@ export const getServerSideProps = async (context: { params: { id: any } }) => {
   const res = await fetch(
     `https://jsonplaceholder.typicode.com/users/${context.params.id}`
   );
-  const user: User = await res.json();
+  const user: UserProps = await res.json();
 
   return {
     props: {

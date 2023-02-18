@@ -28,7 +28,7 @@ export type TestimonialProps = {
   description: string;
 };
 
-export type User = {
+export type UserProps = {
   id: number;
   name: string;
   username: string;

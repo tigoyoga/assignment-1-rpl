@@ -1,7 +1,7 @@
 import { InferGetStaticPropsType } from "next";
 import Link from "next/link";
 import React from "react";
-import { User } from "@/lib/types";
+import { UserProps } from "@/lib/types";
 
 export default function Users({
   users,
@@ -21,7 +21,7 @@ export default function Users({
 
 export const getStaticProps = async () => {
   const res = await fetch("https://jsonplaceholder.typicode.com/users");
-  const users: User[] = await res.json();
+  const users: UserProps[] = await res.json();
 
   return {
     props: {
