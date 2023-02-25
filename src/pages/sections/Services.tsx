@@ -1,6 +1,6 @@
 import React from "react";
 import { BiRightArrowAlt } from "react-icons/bi";
-import ServiceCard from "@/components/ServiceCard";
+import ServiceCard from "@/components/card/ServiceCard";
 import { services } from "@/lib/const";
 
 export default function Services() {

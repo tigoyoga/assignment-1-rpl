@@ -1,6 +1,6 @@
 import React from "react";
 import Button from "@/components/Button";
-import PortfolioCard from "@/components/PortfolioCard";
+import PortfolioCard from "@/components/card/PortfolioCard";
 import { portfolio } from "@/lib/const";
 
 export default function Portfolio() {

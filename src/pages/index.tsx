@@ -7,9 +7,10 @@ import {
   Portfolio,
   Testimonial,
   Collaboration,
-} from "@/lib/Utils";
+} from "@/lib/utils";
 
 import Layout from "@/components/layout/Layout";
+import Input from "@/components/forms/Input";
 
 export default function Home() {
   return (

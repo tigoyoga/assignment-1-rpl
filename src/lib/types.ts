@@ -1,4 +1,5 @@
 import { IconType } from "react-icons";
+import * as React from "react";
 
 export type LayoutProps = {
   children: React.ReactNode;
@@ -7,7 +8,7 @@ export type LayoutProps = {
 export type ButtonProps = {
   children: React.ReactNode;
   variant?: "primary" | "transparent";
-};
+} & React.ComponentPropsWithRef<"button">;
 
 export type PortoProps = {
   key: number;
