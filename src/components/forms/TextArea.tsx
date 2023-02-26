@@ -7,8 +7,6 @@ export type TextAreaProps = {
   id: string;
   placeholder?: string;
   helperText?: string;
-  readOnly?: boolean;
-  hideError?: boolean;
   validation?: RegisterOptions;
 } & React.ComponentPropsWithoutRef<"textarea">;
 
@@ -17,8 +15,6 @@ export default function TextArea({
   placeholder = "",
   helperText,
   id,
-  readOnly = false,
-  hideError = false,
   validation,
   ...rest
 }: TextAreaProps) {
@@ -33,37 +29,31 @@ export default function TextArea({
       <label htmlFor={id} className='block text-sm font-semibold text-black'>
         {label}
       </label>
-      <div className='relative mt-1'>
+      <div className='mt-1'>
         <textarea
           {...register(id, validation)}
-          rows={3}
           {...rest}
           name={id}
           id={id}
-          readOnly={readOnly}
           className={clsx(
-            readOnly
-              ? "cursor-not-allowed border-gray-300 bg-gray-100 focus:border-gray-300 focus:ring-0"
-              : error
+            error
               ? "bg-red-100 focus:ring-2 ring-1 ring-red-500 focus:border-0 outline-none focus:ring-red-500"
-              : "bg-neutral-100 focus:ring-1 focus:border-0 outline-none focus:ring-primary",
-            "block w-full rounded-sm p-1 pl-2"
+              : "focus:ring-1 focus:border-0 focus:ring-primary",
+            "shadow appearance-none placeholder:text-neutral-400 outline-none border focus:ring-1 rounded w-full p-1 pl-2 text-black"
           )}
           placeholder={placeholder}
           aria-describedby={id}
         />
-        {!hideError && error && (
-          <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3'>
-            <HiExclamationCircle className='text-xl text-red-500' />
-          </div>
-        )}
       </div>
-      <div className='mt-1'>
-        {helperText && <p className='text-xs text-gray-500'>{helperText}</p>}
-        {!hideError && error && (
-          <span className='text-sm text-red-500'>
-            {error.message as string}
-          </span>
+
+      <div className='-mt-1'>
+        {helperText && (
+          <p className='text-left text-xs text-neutral-500'>{helperText}</p>
+        )}
+        {error && (
+          <p className='text-left font-normal leading-none text-[#F32013]'>
+            {error.message as unknown as string}
+          </p>
         )}
       </div>
     </div>

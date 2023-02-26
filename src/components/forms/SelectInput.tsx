@@ -9,7 +9,6 @@ export type SelectInputProps = {
   placeholder?: string;
   helperText?: string;
   type?: string;
-  readOnly?: boolean;
   validation?: RegisterOptions;
   children: React.ReactNode;
 } & React.ComponentPropsWithoutRef<"select">;
@@ -19,7 +18,6 @@ export default function SelectInput({
   helperText,
   id,
   placeholder,
-  readOnly = false,
   children,
   validation,
   ...rest
@@ -31,21 +29,7 @@ export default function SelectInput({
   } = useFormContext();
 
   const value = watch(id);
-
-  // Add disabled and selected attribute to option, will be used if readonly
-  const readOnlyChildren = React.Children.map<React.ReactNode, React.ReactNode>(
-    children,
-    (child) => {
-      if (React.isValidElement(child)) {
-        return React.cloneElement(
-          child as React.ReactElement<SelectInputProps>,
-          {
-            disabled: child.props.value !== rest?.defaultValue,
-          }
-        );
-      }
-    }
-  );
+  const error = errors[id];
 
   return (
     <div>
@@ -55,18 +39,15 @@ export default function SelectInput({
       <div className='relative mt-1'>
         <select
           {...register(id, validation)}
-          // defaultValue to value blank, will get overriden by ...rest if needed
           defaultValue=''
           {...rest}
           name={id}
           id={id}
           className={clsx(
-            readOnly
-              ? "cursor-not-allowed border-gray-300 bg-gray-100 focus:border-gray-300 focus:ring-0"
-              : errors[id]
+            errors[id]
               ? "bg-red-100 focus:ring-2 ring-1 ring-red-500 focus:border-0 outline-none focus:ring-red-500"
-              : "bg-neutral-100 focus:ring-1 focus:border-0 outline-none focus:ring-primary",
-            "block w-full rounded-sm p-1 pl-2 appearance-none",
+              : "focus:ring-1 focus:border-0 focus:ring-primary",
+            "shadow cursor-pointer appearance-none placeholder:text-neutral-400 outline-none border focus:ring-1 rounded w-full p-1 pl-2 text-black",
             { "text-gray-500": value === "" }
           )}
           aria-describedby={id}
@@ -76,21 +57,17 @@ export default function SelectInput({
               {placeholder}
             </option>
           )}
-          {readOnly ? readOnlyChildren : children}
+          {children}
         </select>
-
-        {errors[id] && (
-          <div className='pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3'>
-            <HiExclamationCircle className='text-xl text-red-500' />
-          </div>
-        )}
       </div>
       <div className='mt-1'>
-        {helperText && <p className='text-xs text-gray-500'>{helperText}</p>}
-        {errors[id] && (
-          <span className='text-sm text-red-500'>
-            {errors[id]?.message as unknown as string}
-          </span>
+        {helperText && (
+          <p className='text-left text-xs text-neutral-500'>{helperText}</p>
+        )}
+        {error && (
+          <p className='text-left font-normal leading-none text-[#F32013]'>
+            {error.message as unknown as string}
+          </p>
         )}
       </div>
     </div>

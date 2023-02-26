@@ -76,16 +76,20 @@ export default function Navbar() {
         </div>
         {!colorChange && (
           <div className='hidden md:block'>
-            <button className='bg-transparent rounded-full px-12 py-3 text-primary border-primary border-[1px] font-medium shadow-lg'>
-              Contact Us
-            </button>
+            <Link href={"/form"}>
+              <button className='bg-transparent rounded-full px-12 py-3 text-primary border-primary border-[1px] font-medium shadow-lg'>
+                Sign Up
+              </button>
+            </Link>
           </div>
         )}
         {colorChange && (
           <div className='hidden md:block'>
-            <button className='bg-primary rounded-full px-12 py-2 text-white font-medium shadow-primary border-white border'>
-              Contact Us
-            </button>
+            <Link href={"/form"}>
+              <button className='bg-primary rounded-full px-12 py-2 text-white font-medium shadow-primary border-white border'>
+                Sign Up
+              </button>
+            </Link>
           </div>
         )}
 
@@ -130,9 +134,11 @@ export default function Navbar() {
             ))}
           </ul>
           <div className='block md:hidden'>
-            <button className='bg-white rounded-full px-12 py-3 text-primary border-primary border-[1px] font-medium shadow-lg'>
-              Contact Us
-            </button>
+            <Link href={"/form"}>
+              <button className='bg-white rounded-full px-12 py-3 text-primary border-primary border-[1px] font-medium shadow-lg'>
+                Sign Up
+              </button>
+            </Link>
           </div>
           {isOpen && (
             <FaTimes

@@ -6,6 +6,7 @@ export type LayoutProps = {
 };
 
 export type ButtonProps = {
+  isLoading?: boolean;
   children: React.ReactNode;
   variant?: "primary" | "transparent";
 } & React.ComponentPropsWithRef<"button">;

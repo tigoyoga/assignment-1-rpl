@@ -1,25 +1,28 @@
 import React from "react";
 import Button from "@/components/Button";
 import Input from "@/components/forms/Input";
-import PasswordInput from "@/components/forms/PasswordInput";
+
 import { FormProvider, useForm } from "react-hook-form";
 import { FormProps } from "..";
-import toast from "react-hot-toast";
-import Checkbox from "@/components/forms/Checkbox";
+
 import TextArea from "@/components/forms/TextArea";
 import SelectInput from "@/components/forms/SelectInput";
 
 function ProfileAccount({ setPage }: { setPage: Function }) {
   const methods = useForm<FormProps>();
   const { handleSubmit } = methods;
+  const [data, setData] = React.useState<FormProps>();
 
   const onSubmit = (data: FormProps) => {
-    console.log(data);
+    setData(data);
     setPage(3);
   };
 
   return (
     <div>
+      <h1 className='text-center text-xl font-semibold'>
+        Complete Your Profile
+      </h1>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-2'>
           <Input
@@ -81,56 +84,6 @@ function ProfileAccount({ setPage }: { setPage: Function }) {
             </option>
           </SelectInput>
 
-          <div className='space-y-1'>
-            <p className='block text-sm font-semibold text-typo'>
-              What type of creative services are you interested in?
-            </p>
-            <Checkbox
-              name='services'
-              label='Branding'
-              value='branding'
-              hideError
-            />
-            <Checkbox
-              name='services'
-              label='Graphic Design'
-              value='graphic design'
-              hideError
-            />
-            <Checkbox
-              name='services'
-              label='Social Media Management'
-              value='social media management'
-              hideError
-            />
-            <Checkbox
-              name='services'
-              label='Video Production'
-              value='video production'
-              hideError
-            />
-            <Checkbox
-              name='services'
-              label='Content Creation'
-              value='content creation'
-              hideError
-            />
-            <Checkbox
-              name='services'
-              label='Graphic Design'
-              value='graphic design'
-              hideError
-            />
-            <Checkbox
-              name='services'
-              label='Web Development'
-              value='web development'
-              validation={{ required: "Services must be checked" }}
-            />
-          </div>
-
-          {/* select input for budget range */}
-
           <div className='mx-auto'>
             <Button type='submit' variant='primary'>
               Submit
@@ -138,6 +91,8 @@ function ProfileAccount({ setPage }: { setPage: Function }) {
           </div>
         </form>
       </FormProvider>
+      {/* show data */}
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 }

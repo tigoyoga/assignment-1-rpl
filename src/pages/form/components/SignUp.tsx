@@ -11,15 +11,17 @@ function CreateAccount({ setPage }: { setPage: Function }) {
     mode: "onChange",
   });
   const { handleSubmit } = methods;
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [data, setData] = React.useState<FormProps>();
 
   const onSubmit = (data: FormProps) => {
-    // loading and success toast then redirect to another page
+    setIsLoading(true);
+    setData(data);
     toast.promise(
       new Promise<void>((resolve) => {
         setTimeout(() => {
           resolve();
           setPage(2);
-          console.log(data);
         }, 2000);
       }),
       {
@@ -32,8 +34,9 @@ function CreateAccount({ setPage }: { setPage: Function }) {
 
   return (
     <div>
+      <h1 className='text-center text-xl font-semibold'>Create New Account</h1>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-2'>
+        <form onSubmit={handleSubmit(onSubmit)} className='flex flex-col gap-1'>
           <Input
             label='Username'
             placeholder='Enter Your Username'
@@ -82,13 +85,20 @@ function CreateAccount({ setPage }: { setPage: Function }) {
             }}
           />
 
-          <div className='mx-auto'>
-            <Button type='submit' variant='primary'>
+          <div className='mx-auto mt-3'>
+            <Button
+              isLoading={isLoading}
+              className=''
+              type='submit'
+              variant='primary'
+            >
               Submit
             </Button>
           </div>
         </form>
       </FormProvider>
+
+      <pre>{JSON.stringify(data, null, 2)}</pre>
     </div>
   );
 }

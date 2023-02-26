@@ -1,96 +1,72 @@
-import clsx from "clsx";
 import { useState } from "react";
-import { get, RegisterOptions, useFormContext } from "react-hook-form";
-import { HiExclamationCircle, HiEye, HiEyeOff } from "react-icons/hi";
+import { RegisterOptions, useForm, useFormContext } from "react-hook-form";
+import { RxEyeClosed, RxEyeOpen } from "react-icons/rx";
 
-export type PasswordInputProps = {
-  /** Input label */
-  label: string;
-  /**
-   * id to be initialized with React Hook Form,
-   * must be the same with the pre-defined types.
-   */
+type InputProps = {
   id: string;
-  /** Input placeholder */
+  label: string;
   placeholder?: string;
-  /** Small text below input, useful for additional information */
-  helperText?: string;
-  /**
-   * Input type
-   * @example text, email, password
-   */
-  type?: React.HTMLInputTypeAttribute;
-  /** Disables the input and shows defaultValue (can be set from React Hook Form) */
-  readOnly?: boolean;
-  /** Disable error style (not disabling error validation) */
-  hideError?: boolean;
-  /** Manual validation using RHF, it is encouraged to use yup resolver instead */
   validation?: RegisterOptions;
+  helperText?: string;
 } & React.ComponentPropsWithoutRef<"input">;
 
-export default function PasswordInput({
+export default function Input({
+  id,
   label,
   placeholder = "",
   helperText,
-  id,
-  readOnly = false,
   validation,
+  required,
   ...rest
-}: PasswordInputProps) {
+}: InputProps) {
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
-  const error = get(errors, id);
-
   const [showPassword, setShowPassword] = useState(false);
   const togglePassword = () => setShowPassword((prev) => !prev);
-
+  const error = errors[id];
   return (
-    <div>
-      <label htmlFor={id} className='block text-sm font-semibold text-black'>
+    <div className='mt-2 flex flex-col justify-start relative'>
+      <label className='text-left font-medium' htmlFor={id}>
         {label}
       </label>
-      <div className='relative mt-1'>
+      <div className='relative'>
         <input
-          {...register(id, validation)}
           {...rest}
-          type={showPassword ? "text" : "password"}
-          name={id}
+          className={`
+        ${
+          error
+            ? "ring-1 focus:ring-red-500 focus:ring-2 ring-red-500 bg-red-100"
+            : "focus:ring-primary"
+        }
+        shadow appearance-none placeholder:text-neutral-400 outline-none border focus:ring-1 rounded w-full p-1 pl-2 text-black`}
+          type={`${showPassword ? "text" : "password"}`}
           id={id}
-          readOnly={readOnly}
-          className={clsx(
-            readOnly
-              ? "cursor-not-allowed border-gray-300 bg-gray-100 focus:border-gray-300 focus:ring-0"
-              : error
-              ? "bg-red-100 focus:ring-2 ring-1 ring-red-500 focus:border-0 outline-none focus:ring-red-500"
-              : "bg-neutral-100 focus:ring-1 focus:border-0 outline-none focus:ring-primary",
-            "block w-full rounded-sm p-1 pl-2"
-          )}
           placeholder={placeholder}
-          aria-describedby={id}
+          {...register(id, validation)}
         />
-
         <button
           onClick={togglePassword}
           type='button'
-          className='absolute inset-y-0 right-0 mr-3 flex items-center rounded-lg p-1 focus:outline-none focus:ring focus:ring-success-500'
+          className='absolute inset-y-0 right-0 mr-3 flex items-center rounded-lg p-1 focus:outline-none focus:ring focus:ring-primary/50'
         >
           {showPassword ? (
-            <HiEyeOff className='cursor-pointer text-xl text-gray-500 hover:text-gray-600' />
+            <RxEyeOpen className='cursor-pointer text-xl text-gray-500 hover:text-gray-600' />
           ) : (
-            <HiEye className='cursor-pointer text-xl text-gray-500 hover:text-gray-600' />
+            <RxEyeClosed className='cursor-pointer text-xl text-gray-500 hover:text-gray-600' />
           )}
         </button>
       </div>
       <div className='mt-1'>
-        {helperText && <p className='text-xs text-gray-500'>{helperText}</p>}
+        {helperText && (
+          <p className='text-left text-xs text-neutral-500'>{helperText}</p>
+        )}
         {error && (
-          <span className='text-sm text-red-500 flex gap-x-1'>
-            <HiExclamationCircle className='text-xl text-red-500' />
-            {error?.message as unknown as string}
-          </span>
+          <p className='text-left font-normal leading-none text-[#F32013]'>
+            {error.message as unknown as string}
+          </p>
         )}
       </div>
     </div>
