@@ -35,3 +35,19 @@ a {
 .border-service {
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+#loading {
+  animation: loading 0.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    content: "Loading.";
+  }
+  33% {
+    content: "Loading..";
+  }
+  66% {
+    content: "Loading...";
+  }
+}

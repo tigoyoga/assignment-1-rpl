@@ -20,7 +20,6 @@ export default function User({
 }
 
 export const getServerSideProps = async (context: { params: { id: any } }) => {
-  console.log(context.params.id);
   const res = await fetch(
     `https://jsonplaceholder.typicode.com/users/${context.params.id}`
   );
