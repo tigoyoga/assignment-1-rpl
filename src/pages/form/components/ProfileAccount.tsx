@@ -2,7 +2,7 @@ import React from "react";
 import Button from "@/components/Button";
 import Input from "@/components/forms/Input";
 
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { FormProps } from "..";
 
 import TextArea from "@/components/forms/TextArea";
@@ -30,7 +30,7 @@ function ProfileAccount({ setPage }: { setPage: Function }) {
   const methods = useForm<FormProps>({
     mode: "onTouched",
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
   const [data, setData] = React.useState<FormProps>();
 
   const onSubmit = (data: FormProps) => {
@@ -38,9 +38,7 @@ function ProfileAccount({ setPage }: { setPage: Function }) {
     setPage(3);
   };
 
-  const { watch } = methods;
-
-  const prov = watch(["provinsi", "kabupaten"]);
+  const [provinsi, kabupaten] = watch<any>(["provinsi", "kabupaten"]);
 
   const { data: provinsiData } = useQuery<dataProvinsi>("provinsiData", () =>
     fetch("https://dev.farizdotid.com/api/daerahindonesia/provinsi").then(
@@ -50,25 +48,25 @@ function ProfileAccount({ setPage }: { setPage: Function }) {
 
   // fetch data kabupaten based on provinsi
   const { data: kabupatenData } = useQuery<dataKota>(
-    ["kotaData", prov[0]],
+    ["kotaData", provinsi],
     () =>
       fetch(
-        `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${prov[0]}`
+        `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${provinsi}`
       ).then((res) => res.json()),
     {
-      enabled: prov[0] !== undefined,
+      enabled: provinsi !== undefined,
     }
   );
 
   // fetch data kecamatan based on kabupaten
   const { data: kecamatanData } = useQuery<dataKecamatan>(
-    ["kecamatanData", prov[1]],
+    ["kecamatanData", kabupaten],
     () =>
       fetch(
-        `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${prov[1]}`
+        `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${kabupaten}`
       ).then((res) => res.json()),
     {
-      enabled: prov[1] !== undefined,
+      enabled: kabupaten !== undefined,
     }
   );
 
