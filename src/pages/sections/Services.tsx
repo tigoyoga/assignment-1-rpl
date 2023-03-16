@@ -13,7 +13,7 @@ export default function Services() {
             Perfect and Fast <br className='hidden lg:block' />
             Movement
           </h1>
-          <p className='text-base md:text-xl lg:text-base xl:text-xl text-[#464646] '>
+          <p className='text-base md:text-xl lg:text-base xl:text-xl text-[#464646]'>
             We move with make a Creative Strategy for help your business goal,
             we help to improve your income by a services we have. make your
             content look interesting and make people look for your business
